@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E - Slot Machine</title>
+
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+        }
+        #whole-container{
+            background: linear-gradient(to bottom, #430A5D,  #682b85, #80596d, #682b85, #430A5D);
+            padding: 20px;
+            /* padding-top: 90px; */
+            width: fit-content;
+            border: #a75bd0 solid 20px;
+            animation: blinkBorder 1s infinite;
+            transform: scale(0.75)
+            
+        }
+
+        @keyframes blinkBorder {
+            0% {
+                border-color: #a75bd0;
+            }
+            50% {
+                border-color: #d8a8f2;
+            }
+            100% {
+                border-color: #a75bd0;
+            }
+        }
+
+        .content-upper{
+            width: fit-content;
+            
+            
+        }
+
+        table {
+            border-collapse: collapse;
+            border: 5px;
+        }
+
+        tr, td {
+            margin: 0;
+            padding: 0;
+            width: 150px;
+        }
+
+        img {
+            width: 100%;
+            display: block;
+        }
+        #whole-container {
+            text-align: center;
+        }
+
+        #jackpot {
+            /* Font Style and Size */
+            font-weight: bold;
+            font-family:cursive;
+            font-size: 3em;
+
+            /* Color */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: white;
+
+            /* Background */
+            background-color: #000; /* Black background */
+            color: #fff; /* White text */
+            padding: 10px;
+            border-radius: 10px;
+
+            /* Shadow and Glow */
+            text-shadow: 0 0 20px #ae99b7, 0 0 20px #dedacb, 0 0 30px #ffffff;
+
+            /* Borders and Outlines */
+            -webkit-text-stroke: 1px #000; /* Black outline */
+            border-radius: 10px;
+
+            /* Animation */
+            animation: blink 1s infinite, zoom 2s infinite;
+
+            /* Alignment and Spacing */
+            text-align: center;
+            line-height: 1.5;
+        }
+
+            /* Keyframes for animations */
+            @keyframes blink {
+                30% {
+                    opacity: 0;
+                }
+            }
+
+            @keyframes zoom {
+                0%, 100% {
+                    transform: scale(1);
+                }
+                50% {
+                    transform: scale(1.2);
+                }
+            }
+            #seven {
+                text-align: center;
+                margin-top: -50px;
+            /* Font Style and Size */
+            font-family: 'Arial', sans-serif;
+
+            /* Color */
+            color: #ffcc00; /* Gold color */
+
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            /* Middle 7 */
+            h1 {
+                font-size: 6em; /* Larger font size for middle 7 */
+                margin: 0; /* Remove default margin */
+                color:  rgb(222, 4, 246); /* Magenta color */
+                text-shadow: 0 0 30px #c0c0c0, 0 0 20px #c0c0c0, 0 0 30px #c0c0c0;
+                letter-spacing: 10px; /* Wider letter spacing */
+            }
+
+            /* Other 7s */
+            h3 {
+                font-size: 4em; /* Smaller font size for outer 7s */
+                margin: 0; /* Remove default margin */
+                color: rgb(222, 4, 246); /* Magenta color */
+                text-shadow: 0 0 30px silver, 0 0 20px silver, 0 0 30px silver;
+                letter-spacing: 10px; /* Wider letter spacing */
+            }    
+        }
+
+        #jackpot-container {
+            background-color: rgb(51, 22, 65);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            border-radius: 50% 50% 0 0; /* Bottom curve */
+            overflow: hidden; /* Clip content outside the curve */
+            transform: scaleY(1); /* Skew transformation */
+            animation: colorChange 1s infinite alternate;
+            margin-top: 5px;
+            height: 100px;
+            
+        }
+
+        td h3{
+            color: #ddc3cd;
+            font-family:cursive;
+            margin: 0;
+            margin-top: 5px;
+        }
+
+        .message {
+            color: #ddc3cd;
+            font-weight: 200;
+            letter-spacing: 10px;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            animation: colorChange 1s infinite alternate; /* Animation for continuous color change */
+        }
+
+        @keyframes colorChange {
+            0% {
+                background-color: rgb(114, 45, 123);
+            }
+            50% {
+                background-color: rgb(151, 78, 151);
+            }
+            100% {
+                background-color:  rgb(140, 92, 147);
+            }
+        }
+
+        tr input{
+            background-color: rgb(114, 45, 123);
+            width: 90%;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bolder;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            margin: auto;
+            color: white;
+            border: white solid 2px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+
+        #credits{
+            border-top-left-radius: 50px;
+            border-bottom-left-radius: 50px;
+        }
+
+        .thirdRow td {
+            border: none;
+        }
+
+        #bet{
+            border-top-right-radius: 50px;
+            border-bottom-right-radius: 50px;
+        }
+
+        #buttons{
+            display: flex;
+            justify-content: start;
+            margin-left: 15px;
+            
+        }
+
+
+        #enter-bet, #same-bet-amount, #music{
+            height: 50px;
+            width: 130px;
+            border-radius: 50px;
+            background-color:#8e47b3;
+            cursor:pointer;
+            margin-right: 5px;
+            margin-left: 5px;
+            margin-bottom: 20px;
+            font-weight: bolder;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            color: white;
+            
+        }
+
+        #enter-bet:hover, #same-bet-amount:hover, #music:hover {
+            background-color: #af68d0; /* A darker shade of the original color */
+            transform: scale(1.05); /* Slightly increase the size */
+        }
+    
+        #music-img{
+            height: 30px;
+            width: 50px;
+            transform: translateX(60%);
+        }
+
+        #add-credits-input{
+            width: 80px;
+            height: 30px;
+            text-align: center;
+            font-weight: bolder;
+            background-color:#ffffff;
+            color: #000000;
+            border: outset;
+            border-top-right-radius: 50px;
+            border-bottom-right-radius: 50px;
+            
+        }
+
+        #add-credits-button{
+            width: 120px;
+            height: 36px;
+            cursor: pointer;
+            background-color: #a75bd0;
+            border: outset;
+            border-top-left-radius: 50px;
+            border-bottom-left-radius: 50px;
+            font-weight: bolder;
+        }
+
+        #winning-list{
+            color: white;
+        }
+
+        #winning-list {
+            color: white;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+            animation: winningListAnimation 3s infinite alternate;
+        }
+        @keyframes winningListAnimation {
+            0% {
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+            50% {
+                background-color: rgba(50, 50, 50, 0.5);
+            }
+            100% {
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+        }
+        .winning-list h1 {
+            font-size: 2em;
+            margin: 10px 0;
+            font-family: 'Arial', sans-serif;
+            color: #e1d9b9;
+            text-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
+        }
+        .winning-list h3 {
+            font-size: 1.5em;
+            margin: 5px 0;
+            font-family: 'Arial', sans-serif;
+            color: #e7dcdc;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="whole-container">
+        <!-- <div id="upper-part">
+            <h1 class="content-upper" id="title">Diamond</h1>
+            <div class="content-upper" id="seven">
+                <h3>7</h3>
+                <h1>7</h1>
+                <h3>7</h3>
+            </div>
+        </div> -->
+
+        <div id="center-part">
+            <div class="content-center" id="jackpot-container">
+                <h1 id="jackpot">JACKPOT</h1>
+            </div>
+            <div class="content-center" >
+                <table border="10">
+                    <tr class="firstRow" >
+                        <td>
+                            <img src="7.png" id="img1">
+                        </td>
+                        <td>
+                            <img src="7.png" id="img2">
+                        </td>
+                        <td>
+                            <img src="7.png" id="img3">
+                        </td>
+                    </tr>
+
+                    <tr class="message">
+                        <td colspan="3"><h2 id="message">PLAY NOW!!!</h2></td>
+                    </tr>
+                </table>
+
+                <table>
+                    <tr class="thirdRow">
+                        <td>
+                            <h3>CREDITS</h3>
+                            <input id="credits" type="text" value="10000" disabled>
+                        </td>
+                        <td>
+                            <h3>WINNINGS</h3>
+                            <input id="winnings" type="text" value="0" disabled>
+                        </td>
+                        <td>
+                            <h3>BET</h3>
+                            <input id="bet" type="number" name="bet-amount" min="100" max="2000" step="100" value="100">
+                        </td>
+                    </tr>
+                </table>
+
+                
+            </div>
+        </div>
+
+        <div id="lower-part">
+            <div class="content-lower" id="buttons">
+                <button id="music">
+                    <img src="off.png" alt="Music" id="music-img">
+                </button>
+                <audio src="Slot Machine - Super Mario 3D World Music.mp3" id="audio"></audio>
+                <button id="enter-bet">ENTER BET</button>
+                <button id="same-bet-amount">SAME BET</button>
+            </div>
+
+            <div class="content-lower" id="winning-list">
+                <div class="winning-list">
+                    <h1>Winning Combinations:</h1>
+                    <h3>3 identical images: 2x your bet</h3>
+                    <h3>Two 7s: 3x your bet</h3>
+                    <h3>Three 7s: 5x your bet</h3>
+                </div>
+                <button id="add-credits-button">ADD CREDITS</button>
+                <input id="add-credits-input" type="number" placeholder="1000" min="1000" max="10000" step="1000">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const images = ['1.png', 'orange.png', '2.png', 'strawberry.png', '7.png', 'greenApple.png'];
+const imgElements = [document.getElementById('img1'), document.getElementById('img2'), document.getElementById('img3')];
+const betInput = document.getElementById('bet');
+const creditsInput = document.getElementById('credits');
+const winningsInput = document.getElementById('winnings');
+const messageElement = document.getElementById('message');
+const enterBetButton = document.getElementById('enter-bet');
+const sameBetButton = document.getElementById('same-bet-amount');
+const addCreditsInput = document.getElementById('add-credits-input');
+const addCreditsButton = document.getElementById('add-credits-button');
+
+let credits = 10000;
+let winnings = 0;
+let lastBet = parseInt(betInput.value, 10);
+
+function getRandomImage() {
+    return images[Math.floor(Math.random() * images.length)];
+}
+
+function startSlotMachine() {
+    const betAmount = parseInt(betInput.value, 10);
+    if (isNaN(betAmount) || betAmount > credits) {
+        alert("Please enter a valid bet amount within your credit limit.");
+        return;
+    }
+
+    lastBet = betAmount;
+
+    // Disable buttons and animations
+    enterBetButton.disabled = true;
+    sameBetButton.disabled = true;
+    enterBetButton.style.animation = 'none';
+    sameBetButton.style.animation = 'none';
+
+    const intervalId = setInterval(() => {
+        imgElements.forEach(img => img.src = getRandomImage());
+    }, 100);
+
+    setTimeout(() => {
+        clearInterval(intervalId);
+        checkWinning();
+        
+        betInput.value = betInput.min;
+
+        // Enable buttons and restore animations
+        enterBetButton.disabled = false;
+        sameBetButton.disabled = false;
+        enterBetButton.style.animation = '';
+        sameBetButton.style.animation = '';
+    }, 7000);
+}
+
+function checkWinning() {
+    const imgSrcs = imgElements.map(img => img.src);
+    const betAmount = lastBet;
+    let winMessage = "Try Again";
+    const music = document.getElementById('audio');
+
+    if (imgSrcs[0] === imgSrcs[1] && imgSrcs[1] === imgSrcs[2]) {
+        winnings += betAmount * 2;
+        credits += betAmount * 2;
+        winMessage = "You won 2x!";
+        music.pause();
+        music.src = "Slot Machine Jackpot Sound Effect.mp3";
+        music.play();
+        setTimeout(() => {
+            music.src = "Slot Machine - Super Mario 3D World Music.mp3";
+            music.play();
+        }, 5000); 
+
+    } else if (imgSrcs.filter(src => src.includes('7.png')).length === 2) {
+        winnings += betAmount * 3;
+        credits += betAmount * 3;
+        winMessage = "You won 3x!";
+        music.pause();
+        music.src = "Slot Machine Jackpot Sound Effect.mp3";
+        music.play();
+        setTimeout(() => {
+            music.src = "Slot Machine - Super Mario 3D World Music.mp3";
+            music.play();
+        }, 5000); 
+        
+    } else if (imgSrcs.filter(src => src.includes('7.png')).length === 3) {
+        winnings += betAmount * 5;
+        credits += betAmount * 5;
+        winMessage = "JACKPOT!";
+        music.pause();
+        setTimeout(() => {
+            music.src = "Slot Machine - Super Mario 3D World Music.mp3";
+            music.play();
+        }, 5000); 
+    } else {
+        credits -= betAmount;
+        winnings -= betAmount;
+        music.pause();
+        music.src = "Fail Sound Effect.mp3";
+        music.play();
+        setTimeout(() => {
+            music.src = "Slot Machine - Super Mario 3D World Music.mp3";
+            music.play();
+        }, 6000); 
+    }
+
+    creditsInput.value = credits;
+    winningsInput.value = winnings;
+    messageElement.innerText = winMessage;
+}
+
+function addCredits() {
+    const addAmount = parseInt(addCreditsInput.value, 10);
+    if (!isNaN(addAmount) && addAmount > 0) {
+        credits += addAmount;
+        creditsInput.value = credits;
+        addCreditsInput.value = ''; 
+    } else {
+        alert("Please enter a valid amount to add.");
+    }
+}
+
+enterBetButton.addEventListener('click', startSlotMachine);
+sameBetButton.addEventListener('click', () => {
+    betInput.value = lastBet;
+    startSlotMachine();
+});
+
+addCreditsButton.addEventListener('click', addCredits);
+
+const musicButton = document.getElementById('music');
+const musicImage = musicButton.querySelector('img');
+const audio = document.querySelector('audio');
+
+function toggleMusic() {
+    if (audio.paused) {
+        audio.play();
+        musicImage.src = 'on.png';
+    } else {
+        audio.pause();
+        musicImage.src = 'off.png';
+    }
+}
+
+musicButton.addEventListener('click', toggleMusic);
+
+    </script>
+</body>
+</html>
+
+
+           
